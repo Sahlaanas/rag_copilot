@@ -1,0 +1,29 @@
+# NeMo Guardrails config — NOT active in the current MVP.
+#
+# The working guardrails today live in src/core/guardrails.py (a
+# lightweight, dependency-free heuristic + LLM self-check). This file is
+# a starting point for when you're ready to upgrade to real NeMo
+# Guardrails / Colang rails.
+#
+# To activate:
+#   1. pip install nemoguardrails
+#   2. Write actual .co (Colang) flow files defining your rails
+#   3. Replace the body of check_input/check_output in guardrails.py
+#      with calls to nemoguardrails.LLMRails
+#
+# Docs: https://github.com/NVIDIA/NeMo-Guardrails
+
+models:
+  - type: main
+    engine: ollama
+    model: llama3.1:8b
+    parameters:
+      base_url: "http://localhost:11434"
+
+rails:
+  input:
+    flows:
+      - self check input
+  output:
+    flows:
+      - self check output

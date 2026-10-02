@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  # ── Main application ──────────────────────────────────────────────────
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Ollama is expected to run natively on the host (for GPU access) —
+      # this lets the container reach it. If you'd rather run Ollama in
+      # Docker too, see the commented `ollama` service below and change
+      # this to http://ollama:11434 instead.
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./.chroma_data:/app/.chroma_data
+    depends_on: []
+
+  # ── Optional: run Ollama in Docker too (CPU-only unless you add GPU
+  # passthrough — running Ollama natively on the host is usually faster) ──
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama_data:/root/.ollama
+
+  # ── Observability stack (free, self-hosted Langfuse) ────────────────────
+  # Start with: docker compose --profile observability up
+  postgres:
+    image: postgres:16-alpine
+    profiles: ["observability"]
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: langfuse
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse_postgres_data:/var/lib/postgresql/data
+
+  langfuse:
+    image: langfuse/langfuse:2
+    profiles: ["observability"]
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://langfuse:langfuse@postgres:5432/langfuse
+      NEXTAUTH_SECRET: change-me-in-production
+      NEXTAUTH_URL: http://localhost:3000
+      SALT: change-me-too
+    depends_on:
+      - postgres
+
+volumes:
+  langfuse_postgres_data:
+  # ollama_data:

@@ -1,0 +1,136 @@
+[
+  {
+    "query": "How many days per week can I work remotely?",
+    "expected_answer_contains": ["3 days"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Do I need a VPN for remote work?",
+    "expected_answer_contains": ["VPN"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "How far in advance do I need to request remote work?",
+    "expected_answer_contains": ["5 business days"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Where do I submit a remote work request?",
+    "expected_answer_contains": ["HR portal"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "When is the annual security training deadline?",
+    "expected_answer_contains": ["January 31"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "How long do new hires have to complete security training?",
+    "expected_answer_contains": ["30 days"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "What happens if I don't complete security training on time?",
+    "expected_answer_contains": ["suspen"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "How quickly must I report a suspected security incident?",
+    "expected_answer_contains": ["1 hour"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Where do I report a security incident?",
+    "expected_answer_contains": ["incident-response"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Should I try to fix a suspected security breach myself before reporting it?",
+    "expected_answer_contains": ["not", "do not"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Do I need approval for a $30 expense?",
+    "expected_answer_contains": ["no", "not require", "under $50"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Do I need manager approval for a $75 purchase?",
+    "expected_answer_contains": ["over $50", "manager"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "How long do I have to submit a reimbursement request after an expense?",
+    "expected_answer_contains": ["30 days"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Where do I submit expense reimbursements?",
+    "expected_answer_contains": ["Finance portal"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "How long is customer data retained before it's purged?",
+    "expected_answer_contains": ["7 years"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "How long are internal logs kept?",
+    "expected_answer_contains": ["90 days"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "What happens to log retention if there's a legal hold?",
+    "expected_answer_contains": ["legal hold"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "What's the minimum required password length?",
+    "expected_answer_contains": ["14 characters"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "How often must I rotate my password?",
+    "expected_answer_contains": ["90 days"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Can I reuse one of my last few passwords?",
+    "expected_answer_contains": ["10 passwords", "not", "no"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Is multi-factor authentication required for systems with customer data?",
+    "expected_answer_contains": ["MFA", "mandatory"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Can I expense a $200 conference ticket without getting it approved first?",
+    "expected_answer_contains": ["over $50", "manager"],
+    "expected_route": "policy_search"
+  },
+  {
+    "query": "Our production database just went down, what should I do?",
+    "expected_answer_contains": [],
+    "expected_route": "incident_resolution"
+  },
+  {
+    "query": "I think our systems have been breached — what's the first thing I should do?",
+    "expected_answer_contains": ["1 hour"],
+    "expected_route": "incident_resolution"
+  },
+  {
+    "query": "What's the company's policy on paid vacation days?",
+    "expected_answer_contains": [],
+    "expected_route": "policy_search",
+    "expect_no_answer": true,
+    "note": "Not covered anywhere in company_policies.txt -- tests that the system abstains rather than hallucinating a vacation policy."
+  },
+  {
+    "query": "What's the maximum signing bonus a new hire can negotiate?",
+    "expected_answer_contains": [],
+    "expected_route": "policy_search",
+    "expect_no_answer": true,
+    "note": "Not covered anywhere in company_policies.txt -- second abstention test, different topic area."
+  }
+]

@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "enterprise-agent-copilot"
+version = "0.1.0"
+description = "Enterprise Agentic Ops & Compliance Copilot — 100% free/local stack (Ollama + Chroma + LangGraph)"
+authors = ["You <you@example.com>"]
+readme = "README.md"
+# This is an application you run (via `poetry run uvicorn src.main:app`),
+# not a library meant to be published/pip-installed elsewhere — so skip
+# Poetry's "install the project itself as a package" step. Without this,
+# `poetry install` fails looking for a folder named
+# enterprise_agent_copilot/ (our code lives in src/ instead).
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.0"
+uvicorn = { extras = ["standard"], version = "^0.30.0" }
+pydantic = "^2.8.0"
+pydantic-settings = "^2.4.0"
+
+# Agent orchestration
+langgraph = "^0.2.20"
+langchain-core = "^0.3.0"
+
+# LLM providers (pick one via LLM_PROVIDER in .env — both installed by
+# default since either is $0 to use; drop the one you don't need)
+ollama = "^0.3.3"
+google-genai = "^1.2.0"
+
+# Vector store + hybrid search (all local, free)
+chromadb = "^0.5.5"
+sentence-transformers = "^3.1.0"
+rank-bm25 = "^0.2.2"
+
+# Misc
+python-dotenv = "^1.0.1"
+httpx = "^0.27.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+pytest-asyncio = "^0.24.0"
+ruff = "^0.6.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
